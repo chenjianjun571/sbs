@@ -5,12 +5,25 @@ const Test = React.createClass({
   render () {
     return (
       <div>
-        <p>
-          test
-        </p>
+        <button onClick={this.handle}>test</button>
       </div>
     )
+  },
+
+  handle() {
+    fetch('/test', {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        firstParam: 'yourValue',
+        secondParam: 'yourOtherValue',
+      })
+    })
   }
+
 })
 
 export { Test }
