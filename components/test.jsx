@@ -1,5 +1,6 @@
 import React, { PropTypes } from 'react'
 import _ from 'lodash'
+import {NetApi} from '../src/common/net-api'
 
 const Test = React.createClass({
   render () {
@@ -11,19 +12,26 @@ const Test = React.createClass({
   },
 
   handle() {
-    fetch('/test', {
-      method: 'POST',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        firstParam: 'yourValue',
-        secondParam: 'yourOtherValue',
-      })
-    })
-  }
+    // localStorage 存储数据在客户端
+    //let loUser = localStorage.getItem("user") || "";
+    localStorage.setItem('user','yourValue');
 
+    //NetApi.get('GET', '/test', {Name:"sanmao",Password:"sanmaoword"}, function(err, data) {
+    //  if(err) {
+    //    console.log('调用出错.......')
+    //  } else {
+    //    console.log('')
+    //  }
+    //});
+
+    NetApi.get('POST', '/test', {Name:"sanmao",Password:"sanmaoword"}, function(err, data) {
+      if(err) {
+        console.log('调用出错.......')
+      } else {
+        console.log('')
+      }
+    });
+  }
 })
 
 export { Test }

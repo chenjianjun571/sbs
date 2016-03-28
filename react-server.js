@@ -60,6 +60,7 @@ ReactServer.use(function*(next) {
     var dt = new Date();
     dt.setMinutes(dt.getMinutes() + 30);
     this.session.cookie.expires = dt;
+    console.log('session 存在....')
   } else {
     this.redirect('/login')
   }

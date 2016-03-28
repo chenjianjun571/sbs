@@ -54,10 +54,10 @@ busRouter.get('/test', function *(next) {
   yield this.render('modules/default', { 'reactMarkup': renderToString(<Test data="test"/>), 'main': 'test'})
 });
 
-//post测试OK
-//busRouter.post('/test', function *(next) {
-//  console.log(JSON.stringify(this.request.body))
-//  this.body = 'ok'
-//});
+//TODO: post测试OK
+busRouter.post('/test', function *(next) {
+  console.log(JSON.stringify(this.request.body))
+  this.body = {sucess:true}
+});
 
 export { loginRouter, busRouter }
