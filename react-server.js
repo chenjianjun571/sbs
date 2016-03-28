@@ -49,6 +49,8 @@ ReactServer.use(session({
   }
 }));
 
+
+// 如果是进入登录界面,是不需要判断sid的
 ReactServer.use(loginRouter.routes())
 
 // 进入业务以后先验证是否登录
@@ -65,6 +67,7 @@ ReactServer.use(function*(next) {
   yield next
 })
 
+// 业务路由
 ReactServer.use(busRouter.routes())
 
 /**服务器异常处理**/
