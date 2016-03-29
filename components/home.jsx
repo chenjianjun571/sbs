@@ -1,8 +1,8 @@
 import React, { PropTypes } from 'react'
 import _ from 'lodash'
-import {NetApi} from '../src/common/net-api'
+import {NetApi} from '../common/net-api'
 
-const Test = React.createClass({
+const Home = React.createClass({
   render () {
     return (
       <div>
@@ -16,7 +16,7 @@ const Test = React.createClass({
     //let loUser = localStorage.getItem("user") || "";
     localStorage.setItem('user','yourValue');
 
-    //NetApi.get('GET', '/test', {Name:"sanmao",Password:"sanmaoword"}, function(err, data) {
+    //NetApi.get('GET', '/home', {Name:"sanmao",Password:"sanmaoword"}, function(err, data) {
     //  if(err) {
     //    console.log('调用出错.......')
     //  } else {
@@ -24,7 +24,7 @@ const Test = React.createClass({
     //  }
     //});
 
-    NetApi.get('POST', '/test', {Name:"sanmao",Password:"sanmaoword"}, function(err, data) {
+    NetApi.get('POST', '/home', {Name:"sanmao",Password:"sanmaoword"}, function(err, data) {
       if(err) {
         console.log('调用出错.......')
       } else {
@@ -34,4 +34,4 @@ const Test = React.createClass({
   }
 })
 
-export { Test }
+export { Home }

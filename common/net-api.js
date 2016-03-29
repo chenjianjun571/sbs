@@ -1,7 +1,6 @@
 /**
- * Created by chenjianjun on 16/3/28.
+ * Created by chenjianjun on 16/3/29.
  */
-
 const NetApi = {
   /**
    * 封装网络请求
@@ -43,3 +42,4 @@ const NetApi = {
 }
 
 export { NetApi }
+

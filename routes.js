@@ -1,16 +1,19 @@
+/**
+ * Created by chenjianjun on 16/3/29.
+ */
 import Router from 'koa-router'
 import React, { PropTypes } from 'react'
 import _ from 'lodash'
 import { renderToString } from 'react-dom/server'
-const DBUtil = require("./src/server/mysql_db/dbHelper.js");
 
-import sessionManager from './src/server/thinky/session_manager.js'
+const DBUtil = require("./server/db/mysql/db-helper.js");
+import sessionManager from './server/db/rethinkdb/session-manager.js'
 const SessionManager = sessionManager.Instance();
 
 import { Login } from './components/login.jsx'
-import { Test } from './components/test.jsx'
+import { Home } from './components/home.jsx'
 
-// 登录注册页面
+// 登录注销路由
 const loginRouter = new Router()
 loginRouter.post('/login', function *(next) {
   let username = this.request.body.username;
@@ -27,17 +30,14 @@ loginRouter.post('/login', function *(next) {
         username:username
       };
       this.session.user = user;
-      this.redirect('/test')
+      this.body = {success:true, msg:'登录成功'}//this.redirect('')
     } else {
-      // 只能通过带参数的方式传递错误码
-      this.redirect('/login?err=1')
-      //yield this.render('modules/default', { 'reactMarkup': renderToString(<Login msg="用户名密码错误"/>), 'main': 'login'})
+      this.body = {success:false, msg:'登录失败'}
     }
   } else {
-    // 只能通过带参数的方式传递错误码,客户端通过location的方式获取
-    this.redirect('/login?err=1')
+    this.body = {success:false, msg:'登录失败'}
   }
-});
+})
 
 loginRouter.get('/login', function *(next) {
   yield this.render('modules/default', { 'reactMarkup': renderToString(<Login />), 'main': 'login'})
@@ -50,12 +50,12 @@ loginRouter.get('/logout', function *(next) {
 
 // 需要授权访问的页面
 const busRouter = new Router()
-busRouter.get('/test', function *(next) {
-  yield this.render('modules/default', { 'reactMarkup': renderToString(<Test data="test"/>), 'main': 'test'})
+busRouter.get('/home', function *(next) {
+  yield this.render('modules/default', { 'reactMarkup': renderToString(<Home />), 'main': 'home'})
 });
 
 //TODO: post测试OK
-busRouter.post('/test', function *(next) {
+busRouter.post('/home', function *(next) {
   console.log(JSON.stringify(this.request.body))
   this.body = {sucess:true}
 });

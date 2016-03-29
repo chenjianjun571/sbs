@@ -1,9 +1,9 @@
 /**
  * Created by chenjianjun on 16/2/26.
  */
-var env=require("../config");
-var type=env.Thinky.type;
-var r = env.Thinky.r
+import { Thinky } from "../../db-config"
+var type=Thinky.type;
+var r = Thinky.r
 
 // session存储结构
 /*
@@ -25,7 +25,7 @@ var r = env.Thinky.r
  }
 * */
 
-const Sessions = env.Thinky.createModel('sessions', {
+const Sessions = Thinky.createModel('sessions', {
     sid: type.string(),
     cookie: {
         expires: type.date().default(r.now()),

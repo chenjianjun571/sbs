@@ -2,11 +2,10 @@
  * Created by chenjianjun on 16/3/23.
  */
 var Sessions = require("./module/sessions.js");
-var env=require("./config");
-var r = env.Thinky.r
+import {Thinky} from '../db-config.js'
+var r = Thinky.r
 
-var session = null;
-
+var Session = null;
 function SessionManager() {};
 
 SessionManager.prototype.deleteSessionWithUsername = function(username) {
@@ -18,15 +17,15 @@ SessionManager.prototype.deleteSessionWithUsername = function(username) {
 };
 
 exports.Instance = function() {
-  if (session == null) {
-    session = new SessionManager();
-    // 定时器，定时清理过期session 一分钟一次
+  if (Session == null) {
+    Session = new SessionManager();
+    // 定时器，定时清理过期session 30分钟一次
     setInterval(function() {
       console.log('清理过期session......');
       Sessions.filter(r.row('updateTime').lt(r.now())).delete().then(function(result) {});
-    }, 60000*1);
+    }, 60000*30);
   }
 
-  return session;
+  return Session;
 }
 
