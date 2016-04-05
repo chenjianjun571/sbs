@@ -54,10 +54,5 @@ busRouter.get('/home', function *(next) {
   yield this.render('modules/default', { 'reactMarkup': renderToString(<Home />), 'main': 'home'})
 });
 
-//TODO: post测试OK
-busRouter.post('/home', function *(next) {
-  console.log(JSON.stringify(this.request.body))
-  this.body = {sucess:true}
-});
 
 export { loginRouter, busRouter }
