@@ -10,7 +10,7 @@ import { renderToString } from 'react-dom/server'
 const plannerRouter = new Router()
 
 plannerRouter.get('/planner/index', function *(next) {
-  yield this.render('modules/default', {'main': 'planner-index'})
+  yield this.render('modules/default', {'main': 'planner/index'})
 });
 
 export { plannerRouter }

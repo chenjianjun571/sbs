@@ -4,6 +4,31 @@
 const NetApi = {
 
   //Fetch 请求默认是不带 cookie 的，需要设置 fetch(url, {credentials: 'include'})
+  // application/json
+  Fetch(type, url, da, callback) {
+    fetch(url, {
+      method: type,
+      body: da,
+      credentials: 'same-origin'
+    }).then(
+      res=>{return res.json()}
+    ).then(
+      j=>{callback(null, j);}
+    ).catch(function(error) {
+      callback(error.message);
+    });
+  },
+
+
+
+
+
+
+
+
+
+
+
   /**
    * 封装网络请求
    * @param type: POST or GET
