@@ -4,17 +4,10 @@
 var Sessions = require("./module/sessions.js");
 import {Thinky} from '../db-config.js'
 var r = Thinky.r
+var _ = require('lodash')
 
 var Session = null;
 function SessionManager() {};
-
-SessionManager.prototype.deleteSessionWithUsername = function(username) {
-  return new Promise(function(resolve, reject){
-    Sessions.filter({user: {username:username}}).delete().then(function(result) {
-      resolve(result);
-    });
-  });
-};
 
 exports.Instance = function() {
   if (Session == null) {

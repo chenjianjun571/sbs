@@ -12,14 +12,7 @@ import thunkify from 'thunkify-wrap'
 import Boom from 'boom'
 import _ from 'lodash'
 
-var session = require('koa-generic-session')
-var connection = require('./server/db/rethinkdb/session-story')
-var sessionStore = new connection()
-
-import { loginRouter, busRouter } from './routes'
-
 const Server = Koa()
-
 /**
  初始化模板引擎 使用ejs作为页面引擎
  可以在中间件中用this.render('templateName',jsonData)
@@ -38,10 +31,14 @@ process.env.NODE_ENV === 'development' && Server.use(Logger())
 // favico
 Server.use(Favicon(__dirname + '/assets/images/favicon.png'))
 // 其他静态资源：js/images/css
-Server.use(StaticFile('./assets',{'maxage':3*60*1000}))
+Server.use(StaticFile('./assets',{'maxage':30*60*1000}))
 Server.use(bodyParser());
 // 配置session
 Server.keys = ['jsbn-bus'];
+
+var session = require('koa-generic-session')
+var connection = require('./src/server/db/rethinkdb/session-story')
+var sessionStore = new connection()
 Server.use(session({
   store: sessionStore,
   cookie: {
@@ -53,9 +50,11 @@ Server.use(session({
   }
 }));
 
+// 登录注销相关的路由
+import { loginRouter } from './src/router/login-router'
+
 // 如果是进入登录界面,是不需要判断sid的
 Server.use(loginRouter.routes())
-
 Server.use(function*(next) {
   // 判断sid是否存在 每次操作激活一下cookie的过期时间
   if(this.session.sid) {
@@ -64,13 +63,15 @@ Server.use(function*(next) {
     this.session.cookie.expires = dt;
     console.log('session 存在....')
   } else {
+    console.log('session 不存在....')
     this.redirect('/login')
   }
   yield next
 })
 
-// 业务路由
-Server.use(busRouter.routes())
+// 其他业务路由
+import { plannerRouter } from './src/router/planner-router'
+Server.use(plannerRouter.routes())
 
 /**服务器异常处理**/
 if (process.env.NODE_ENV === 'test') {

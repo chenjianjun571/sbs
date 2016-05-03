@@ -17,13 +17,20 @@ ThinkySession.prototype.get = function* (sid) {
 }
 
 ThinkySession.prototype.set = function* (sid, session) {
-  // check if there is a doc with that id
+  // 根据sid查询session是否存在
   debug('set', sid, session)
   var res = yield this.model.filter({sid:sid}).run()
   if(res[0]) {
     // 更新
     return yield this.model.filter({sid:sid}).update({cookie:session.cookie, updateTime:session.cookie.expires})
   } else {
+
+    // 新的session需要删除同一用户的老session
+    debug('new session', session)
+    if (session.user && session.user.username) {
+      yield this.model.filter({user: {username:session.user.username}}).delete();
+    }
+
     var dt = new Date();
     dt.setMilliseconds(dt.getMilliseconds() + session.cookie.maxage);
     // 插入
