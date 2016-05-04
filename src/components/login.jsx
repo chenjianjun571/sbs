@@ -63,7 +63,7 @@ const Password = React.createClass({
     return (
       <div className="form-group">
         <div className="password-box">
-          <input type="password " className="form-control " placeholder="密码 "/>
+          <input type="password" className="form-control " placeholder="密码 "/>
         </div>
       </div>
     );
@@ -82,10 +82,10 @@ const StoreSelection = React.createClass({
             <span className="sr-only">Toggle Dropdown</span>
           </button>
           <ul className="dropdown-menu">
-            <li><a href="#">重庆店</a></li>
-            <li><a href="#">南川店</a></li>
-            <li><a href="#">合川店</a></li>
-            <li><a href="#">永川店</a></li>
+            <li><a>重庆店</a></li>
+            <li><a>南川店</a></li>
+            <li><a>合川店</a></li>
+            <li><a>永川店</a></li>
           </ul>
         </div>
       </div>
@@ -167,10 +167,10 @@ const Login = React.createClass({
       password : 'test'
     };
 
-    NetApi.get('POST', '/login', info, function(err, data) {
+    NetApi.post('/login', info, function(err, data) {
       console.log('...........')
       if(err) {
-        console.log('调用出错.......')
+        console.log(err)
       } else {
         window.location.href='/planner/index'
       }

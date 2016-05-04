@@ -13,4 +13,8 @@ plannerRouter.get('/planner/index', function *(next) {
   yield this.render('modules/default', {'main': 'planner/index'})
 });
 
+plannerRouter.get('/api', function *(next) {
+  this.body={flg:true}
+});
+
 export { plannerRouter }

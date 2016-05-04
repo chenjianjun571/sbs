@@ -4,7 +4,7 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "start": "NODE_ENV=development DEBUG=session:generic-session-rethinkdb babel-node ./server.js",
+    "start": "NODE_ENV=development DEBUG=cookies,session:generic-session-rethinkdb babel-node ./server.js",
     "build-login": "watchify ./src/client/login.js -o 'uglifyjs -cm > ./assets/script/modules/login.min.js'",
     "build-planner-index": "watchify ./src/client/planner/index.js -o 'uglifyjs -cm > ./assets/script/modules/planner/index.min.js'",
     "test": "echo \"Error: no test specified\" && exit 1"

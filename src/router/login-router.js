@@ -17,6 +17,7 @@ import { Login } from '../components/login.jsx'
 const loginRouter = new Router()
 loginRouter.post('/login', function *(next) {
   let username = this.request.body.username;
+  console.log(JSON.stringify(this.request.body))
   // 从数据库判断用户名和密码是否存在
   let result = yield DBUtil.execSql("select password from user where userName='"+username+"'");
   if(result[0]) {

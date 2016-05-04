@@ -10,7 +10,13 @@ const PlannerIndex = React.createClass({
     return (
       <div>nihao</div>
     )
-  }
+  },
+
+  componentDidMount: function() {
+    NetApi.get('/api',function(err, data){
+      console.log('~~~~~~~~~~')
+    })
+  },
 });
 
 export { PlannerIndex }
