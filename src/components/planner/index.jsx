@@ -13,9 +13,6 @@ const PlannerIndex = React.createClass({
   },
 
   componentDidMount: function() {
-    NetApi.get('/api',function(err, data){
-      console.log('~~~~~~~~~~')
-    })
   },
 });
 
